@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<div class="row">
+
+	<!-- left column -->
+	<div class="col-md-6">
+		<h3>Submitted Ideas</h3>
+
+		{% for idea in ideas %}
+			<h4>
+				<a href="/ideas/{{ idea.slug }}">{{ idea.title }}</a>
+			</h4>
+			<p>by {{ idea.creator }}</p>
+			<p>
+			
+			<ul>
+				{% for cat in idea.categories %}
+				<li>
+					<a href="/category/{{ cat}}">
+						{{ cat|replace("_"," ")}}
+					</a>
+				</li>
+					
+				{% endfor %}
+			</ul>
+
+			<a class="label" href="/ideas/{{ idea.slug }}/edit">edit</a>
+			</p>
+			
+			<hr/>
+		{% endfor %}
+		
+	</div>
+
+	<!-- right column -->
+	<div class="col-md-6">
+
+		<form method="POST" role="form">
+			<legend><h3>Share Your Ideas</h3></legend>
+			<div class="form-group">
+				<label for="creator">First Name</label>
+				<input type="text" id="creator" name="creator" class="form-control" value="">
+			</div>
+
+			<div class="form-group">
+				<label for="title">Project Title</label>
+				<input type="text" id="title" name="title" class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label for="idea">Idea description</label>
+				<textarea name="idea" id="idea" class="form-control"></textarea>
+			</div>
+
+			<label>Category</label>
+			<p class="help-block">Select as many as you need.</p>
+			{# comment - loop through categories and create checkboxes #}
+			{% for c in categories|sort %}
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="categories" value="{{c}}"> {{ c|title }}
+				</label>
+			</div>
+			{% endfor %}
+
+
+
+			<button type="submit" class="btn btn-primary">Add Idea</button>
+		</form>
+	</div>
+
+	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

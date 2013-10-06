@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="ITP DWD Example Site using templates">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <!-- Get Font from Google http://www.google.com/webfonts -->
+        <link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>
+
+        {% block styles %}{% endblock %}
+
+    </head>
+    <body>
+  
+        <div class="container">
+
+            <h1>ITP IDEAS</h1>
+            <hr>
+
+            {% block body %}{% endblock %}
+
+            <footer>
+                <p><a href="http://itppyweb.herokuapp.com/notes/week_5">ITP DWD Fall 2013</a> | <a href="https://github.com/johnschimmel/ITP-Python-Databases-Week5">See Code on Github</a></p>
+                
+            </footer>
+
+        </div> <!-- /container -->
+
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+        {% block scripts %}{% endblock %}
+
+    </body>
+</html>
