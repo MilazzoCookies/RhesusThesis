@@ -27,6 +27,17 @@
 				{% endfor %}
 			</ul>
 
+			<ul>
+				{% for rhes in idea.rhesusThesis %}
+				<li>
+					<a href="/rhesusThesis/{{ rhes}}">
+						{{ rhes|replace("_"," ")}}
+					</a>
+				</li>
+					
+				{% endfor %}
+			</ul>
+
 			<a class="label" href="/ideas/{{ idea.slug }}/edit">edit</a>
 			</p>
 			
@@ -45,10 +56,20 @@
 				<input type="text" id="creator" name="creator" class="form-control" value="">
 			</div>
 
-			<div class="form-group">
-				<label for="title">Project Title</label>
-				<input type="text" id="title" name="title" class="form-control">
+			<!-- <div class="form-group"> -->
+
+			<label>Rhesus or Thesis?</label>
+			<p class="help-block"></p>
+			{# comment - loop through rhesusThesis and create checkboxes #}
+			{% for r in rhesusThesis|sort %}
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="rhesusThesis" value="{{r}}"> {{ r|title }}
+				</label>
+
 			</div>
+			{% endfor %}
 			
 			<div class="form-group">
 				<label for="idea">Idea description</label>
@@ -76,7 +97,7 @@
 
 </div>
 
-{% endblock %}
+<!-- {% endblock %} -->
 
 
 {% block styles %}{% endblock %}

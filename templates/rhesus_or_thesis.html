@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+<div class="row">
+
+	<!-- left column -->
+	<div class="span6">
+		<h3>Ideas: {{ current_rhesusThesis.get('name')|title }}</h3>
+		
+		{% for idea in ideas %}
+			<h4><a href="/ideas/{{ idea.slug }}">{{ idea.title }}</a></h4>
+			<p>by {{ idea.creator }}</p>
+			<p>
+			{% for rhes in idea.rhesusThesus %}
+				<span class="label label-inverse"><a href="/rhesusThesis/{{ rhes}}">{{ rhes|replace("_"," ")}}</a></span>
+			{% endfor %}
+			<hr/>
+		{% endfor %}
+		
+	</div>
+
+	<div class="span6">
+		<h3>Rhesus or Thesis</h3>
+		<ul>
+		{% for rhes in rhesusThesis %}
+		<li><a href="/rhesusThesis/{{ rhes|replace(" ","_") }}">{{ rhes|title }}</a></li>
+		{% endfor %}
+		</ul>
+
+		<br><br>
+
+		<a href="/" class="btn btn-large btn-info">Add Your Idea</a>
+	</div>
+
+	
+
+	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

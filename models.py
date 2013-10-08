@@ -18,6 +18,9 @@ class Idea(Document):
 	# Category is a list of Strings
 	categories = ListField(StringField(max_length=30))
 
+	# rhesusThesis is a list of strings
+	rhesusThesis = ListField(StringField(max_length=30))
+
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )
 

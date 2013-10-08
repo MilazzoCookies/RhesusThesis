@@ -19,6 +19,14 @@
 			</ul>
 		</p>
 
+		<p>
+			<ul>
+			{% for r in idea.rhesusThesis %}
+			<li>{{ r|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>
+		</p>
+
 		<p>added: {{ idea.timestamp }} | id: {{ idea.id }}</p>
 		
 		<hr>

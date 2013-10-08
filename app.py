@@ -20,7 +20,7 @@ db = MongoEngine(app) # connect MongoEngine with Flask App
 import models
 
 # hardcoded categories for the checkboxes on the form
-categories = ['web','physical computing','software','video','music','installation','assistive technology','developing nations','business','social networks']
+categories = ['web', 'software', 'physical computing','video','audio','installation',]
 rhesusThesis = ['RHESUS','THESIS'] #for a dropdown
 
 # --------- Routes ----------
@@ -38,31 +38,37 @@ def index():
 		idea.slug = slugify(idea.title + " " + idea.creator)
 		idea.idea = request.form.get('idea','')
 		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
-		
+		idea.rhesusThesis = request.form.getlist('rhesusThesis')
+
+
 		idea.save() # save it
 
 		# redirect to the new idea page
 		return redirect('/ideas/%s' % idea.slug)
 
 	else:
-
 		# for form management, checkboxes are weird (in wtforms)
 		# prepare checklist items for form
 		# you'll need to take the form checkboxes submitted
 		# and idea_form.categories list needs to be populated.
-		if request.method=="POST" and request.form.getlist('categories'):
+		if request.method=="POST" and request.form.getlist('categories', 'rhesusThesis'):
 			for c in request.form.getlist('categories'):
 				idea_form.categories.append_entry(c)
+
+			for r in request.form.getlist('rhesusThesis'):
+				idea_form.rhesusThesis.append_entry(r)
 
 
 		# render the template
 		templateData = {
 			'ideas' : models.Idea.objects(),
-			'categories' : categories
+			'categories' : categories,
+			'rhesusThesis' : rhesusThesis
 		}
 		app.logger.debug(templateData)
 
 		return render_template("main.html", **templateData)
+
 
 # Display all ideas for a specific category
 @app.route("/category/<cat_name>")
@@ -88,6 +94,30 @@ def by_category(cat_name):
 
 	# render and return template
 	return render_template('category_listing.html', **templateData)
+
+@app.route("/rhesusThesis/<rhesus_or_thesis>")
+def by_rhesus_or_thesis(rhesus_or_thesis):
+
+	# try and get ideas where cat_name is inside the categories list
+	try:
+		ideas = models.Idea.objects(rhesusThesis=rhesus_or_thesis)
+
+	# not found, abort w/ 404 page
+	except:
+		abort(404)
+
+	# prepare data for template
+	templateData = {
+		'current_category' : {
+			'slug' : rhesus_or_thesis,
+			'name' : rhesus_or_thesis.replace('_',' ')
+		},
+		'ideas' : ideas,
+		'rhesus_or_thesis' : rhesusThesis
+	}
+
+	# render and return template
+	return render_template('rhesusThesis_listing.html', **templateData)
 
 
 @app.route("/ideas/<idea_slug>")
