@@ -21,6 +21,7 @@ import models
 
 # hardcoded categories for the checkboxes on the form
 categories = ['web','physical computing','software','video','music','installation','assistive technology','developing nations','business','social networks']
+rhesusThesis = ['RHESUS','THESIS'] #for a dropdown
 
 # --------- Routes ----------
 # this is our main page
