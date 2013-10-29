@@ -1,7 +1,10 @@
 body {
 padding: 30px;
+background-color: purple;
+color: white;
 }
 
 .navbar {
 margin-bottom: 30px;
+color: white;
 }
