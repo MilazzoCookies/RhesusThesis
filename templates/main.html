@@ -11,7 +11,7 @@
 
 		{% for idea in ideas %}
 			<h4>
-				<a href="/ideas/{{ idea.slug }}">{{ idea.title }}</a>
+				<a href="/ideas/{{ idea.slug }}">{{ idea.idea }}</a>
 			</h4>
 			<p>by {{ idea.creator }}</p>
 			<p>
@@ -52,7 +52,7 @@
 		<form method="POST" role="form">
 			<legend><h3>Add an idea here</h3></legend>
 			<div class="form-group">
-				<label for="creator">First Name</label>
+				<label for="creator">Full Name</label>
 				<input type="text" id="creator" name="creator" class="form-control" value="">
 			</div>
 
@@ -69,7 +69,14 @@
 				</label>
 
 			</div>
+
+
 			{% endfor %}
+
+			<div class="form-group">
+				<label for="tagline">Idea Tagline</label>
+				<input type="text" id="tagline" name="tagline" class="form-control" value="">
+			</div>
 			
 			<div class="form-group">
 				<label for="idea">Idea description</label>

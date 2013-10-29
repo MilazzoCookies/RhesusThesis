@@ -34,8 +34,8 @@ def index():
 		# get form data - create new idea
 		idea = models.Idea()
 		idea.creator = request.form.get('creator','anonymous')
-		idea.title = request.form.get('title','no title')
-		idea.slug = slugify(idea.title + " " + idea.creator)
+		idea.tagline = request.form.get('tagline','no tagline')
+		idea.slug = slugify(idea.tagline + " " + idea.creator)
 		idea.idea = request.form.get('idea','')
 		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
 		idea.rhesusThesis = request.form.getlist('rhesusThesis')
@@ -63,6 +63,7 @@ def index():
 		templateData = {
 			'ideas' : models.Idea.objects(),
 			'categories' : categories,
+			# 'tagline' : idea.tagline,
 			'rhesusThesis' : rhesusThesis
 		}
 		app.logger.debug(templateData)
@@ -89,6 +90,7 @@ def by_category(cat_name):
 			'name' : cat_name.replace('_',' ')
 		},
 		'ideas' : ideas,
+		'tagline' : tagline,
 		'categories' : categories
 	}
 
@@ -113,6 +115,32 @@ def by_rhesus_or_thesis(rhesus_or_thesis):
 			'name' : rhesus_or_thesis.replace('_',' ')
 		},
 		'ideas' : ideas,
+		'tagline' : tagline,
+		'rhesus_or_thesis' : rhesusThesis
+	}
+
+	# render and return template
+	return render_template('rhesusThesis_listing.html', **templateData)
+
+@app.route("/tagline/<tag_line>")
+def by_tag_line(tag_line):
+
+	# try and get ideas where cat_name is inside the categories list
+	try:
+		ideas = models.Idea.objects(tagline=tag_line)
+
+	# not found, abort w/ 404 page
+	except:
+		abort(404)
+
+	# prepare data for template
+	templateData = {
+		'current_category' : {
+			'slug' : tagline,
+			'name' : tag_line.replace('_',' ')
+		},
+		'ideas' : ideas,
+		'tagline' : tagline,
 		'rhesus_or_thesis' : rhesusThesis
 	}
 
@@ -175,7 +203,7 @@ def page_not_found(error):
     return render_template('404.html'), 404
 
 
-# slugify the title 
+# slugify the tagline 
 # via http://flask.pocoo.org/snippets/5/
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 def slugify(text, delim=u'-'):
