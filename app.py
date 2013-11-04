@@ -1,4 +1,5 @@
 import os, datetime
+from flask import jsonify
 import re
 from flask import Flask, request, render_template, redirect, abort
 from unidecode import unidecode
@@ -212,6 +213,62 @@ def slugify(text, delim=u'-'):
 	for word in _punct_re.split(text.lower()):
 		result.extend(unidecode(word).split())
 	return unicode(delim.join(result))
+
+# the jsonify code is here
+@app.route('/data/ideas')
+def data_ideas():
+ 
+	# query for the ideas - return oldest first, limit 10
+	ideas = models.Idea.objects().order_by('+timestamp').limit(10)
+ 
+	if ideas:
+ 
+		# list to hold ideas
+		public_ideas = []
+ 
+		#prep data for json
+		for i in ideas:
+			
+			tmpIdea = {
+				'creator' : i.creator,
+				'tagline' : i.tagline,
+				'idea' : i.idea,
+				'timestamp' : str( i.timestamp )
+			}
+ 
+			# comments / our embedded documents
+			tmpIdea['comments'] = [] # list - will hold all comment dictionaries
+			
+			# loop through idea comments
+			for c in i.comments:
+				comment_dict = {
+					'name' : c.name,
+					'comment' : c.comment,
+					'timestamp' : str( c.timestamp )
+				}
+ 
+				# append comment_dict to ['comments']
+				tmpIdea['comments'].append(comment_dict)
+ 
+			# insert idea dictionary into public_ideas list
+			public_ideas.append( tmpIdea )
+ 
+		# prepare dictionary for JSON return
+		data = {
+			'status' : 'OK',
+			'ideas' : public_ideas
+		}
+ 
+		# jsonify (imported from Flask above)
+		# will convert 'data' dictionary and set mime type to 'application/json'
+		return jsonify(data)
+ 
+	else:
+		error = {
+			'status' : 'error',
+			'msg' : 'unable to retrieve ideas'
+		}
+		return jsonify(error)
 
 
 
