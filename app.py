@@ -2,6 +2,7 @@ import os, datetime
 from flask import jsonify
 import re
 from flask import Flask, request, render_template, redirect, abort
+import requests
 from unidecode import unidecode
 
 # mongoengine database module
@@ -269,6 +270,29 @@ def data_ideas():
 			'msg' : 'unable to retrieve ideas'
 		}
 		return jsonify(error)
+
+
+#pulling data from existing JSON on another site
+@app.route("/data/grab")
+def data_grab():
+ 
+	# fetch Ideas JSON
+	ideas = requests.get('http://omgclothes.herokuapp.com/data/ideas')
+	
+	# get ideas from JSON
+	itpIdeas = ideas.json().get('ideas')
+	
+	# log out the content of the request
+	app.logger.debug(itpIdeas)
+	
+	# prepare template data
+	templateData = {
+		'ideas' : itpIdeas
+	}
+	
+	return render_template("main.html", **templateData)
+ 
+ 
 
 
 
