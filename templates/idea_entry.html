@@ -6,11 +6,11 @@
 <div class="row">
 
 	<!-- left column -->
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<h2>IDEA: {{ idea.tagline }}</h2>
 		<p>By {{ idea.creator }}</p>
 		<hr>
-		<p>{{ idea.idea }}</p>
+		<p>Description: {{ idea.idea }}</p>
 		<p>
 			<ul>
 			{% for c in idea.categories %}
@@ -29,25 +29,9 @@
 
 		<p>added: {{ idea.timestamp }} | id: {{ idea.id }}</p>
 		
-		<hr>
-
-		<h3>Comments ( {{ idea.comments|length }} )</h3>
-		<div class="row">
-
-			<!-- DISPLAY COMMENTS -->
+	<!-- ADD COMMENT -->
 			<div class="col-md-5">
-				{% for comment in idea.comments %}
-				<div class="comment">
-					<span class="commenter">{{ comment.name }} said,</span><br>
-					<p>{{ comment.comment }}</p>
-					<p><small>{{ comment.timestamp.strftime("%a %m/%d %I:%M%p ") }}</small></p>
-				</div>
-				
-				{% endfor %}
-			</div>
-
-			<!-- ADD COMMENT -->
-			<div class="col-md-5">
+				<hr>
 				<form method="POST" action="/ideas/{{ idea.id }}/comment">
 					<label for="name">First Name</label>
 					<input type="text" id="name" name="name">
@@ -60,10 +44,30 @@
 					</label>
 				</form>
 			</div>
-		</div>
+
 		
 
 	</div>
+
+
+			<!-- RIGHT COLUMN / DISPLAY COMMENTS -->
+	<h3>Comments ( {{ idea.comments|length }} )</h3>
+	<div class="col-md-6"style="height:400px;width:45%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+				{% for comment in idea.comments %}
+				<div class="comment">
+					<span class="commenter">{{ comment.name }} said,</span><br>
+					<p>{{ comment.comment }}</p>
+					<p><small>{{ comment.timestamp.strftime("%a %m/%d %I:%M%p ") }}</small></p>
+				</div>
+				
+				{% endfor %}
+	</div>
+
+			
+		<!-- </div> -->
+		
+
+	
 
 
 	

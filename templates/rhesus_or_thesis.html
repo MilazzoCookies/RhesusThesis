@@ -10,7 +10,7 @@
 		<h3>Ideas: {{ current_rhesusThesis.get('name')|title }}</h3>
 		
 		{% for idea in ideas %}
-			<h4><a href="/ideas/{{ idea.slug }}">{{ idea.title }}</a></h4>
+			<h4><a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a></h4>
 			<p>by {{ idea.creator }}</p>
 			<p>
 			{% for rhes in idea.rhesusThesus %}
@@ -45,3 +45,4 @@
 
 {% block styles %}{% endblock %}
 {% block scripts %}{% endblock %}
+

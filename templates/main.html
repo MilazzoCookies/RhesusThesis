@@ -6,16 +6,20 @@
 <div class="row">
 
 	<!-- left column -->
-	<div class="col-md-6">
-		<h3>Submitted Ideas</h3>
-		<p><a href="/data/ideas">JSON | </a> <a href="/data/grab">Clothing Data</a></p>
+
+	<h3>Submitted Ideas</h3>
+	<div class="col-md-6" style="height:550px;width:45%;border:1px solid #ccc;overflow:auto;">
+
+
+		
+		<!-- <p><a href="/data/ideas">JSON | </a> <a href="/data/grab">Clothing Data</a></p> -->
 
 		{% for idea in ideas %}
 			<h4>
-				<a href="/ideas/{{ idea.slug }}">{{ idea.idea }}</a>
+				<a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a>
 			</h4>
 			<p>by {{ idea.creator }}</p>
-			<p>IDEA: {{ idea.tagline }}</p>
+			<!-- <p>IDEA: {{ idea.tagline }}</p> -->
 			<p>
 			
 			<ul>
@@ -49,10 +53,11 @@
 	</div>
 
 	<!-- right column -->
-	<div class="col-md-6">
+	<h3>Add an idea here</h3>
+	<div class="col-md-6" style = "height:400px;width:55%;">
 
 		<form method="POST" role="form">
-			<legend><h3>Add an idea here</h3></legend>
+			<legend></legend>
 			<div class="form-group">
 				<label for="creator">Full Name</label>
 				<input type="text" id="creator" name="creator" class="form-control" value="">
@@ -75,7 +80,7 @@
 
 			{% endfor %}
 
-			<div class="form-group">
+			<div class="form-group" style = "width = 65%;">
 				<label for="tagline">Idea Tagline</label>
 				<input type="text" id="tagline" name="tagline" class="form-control" value="">
 			</div>

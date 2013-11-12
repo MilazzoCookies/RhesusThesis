@@ -9,6 +9,13 @@ from unidecode import unidecode
 from flask.ext.mongoengine import MongoEngine
 
 
+ # what do I need to make this a fully functioning site? Authentification, 
+ # Rhesus V THESIS page, pages for each category, pages for each entry, working comments
+
+
+ # ask schimmel about comments and bootstrap problems
+
+
 app = Flask(__name__)   # create our flask app
 # app.config['CSRF_ENABLED'] = False
 
@@ -63,9 +70,9 @@ def index():
 
 		# render the template
 		templateData = {
-			'ideas' : models.Idea.objects(),
+			'ideas' : models.Idea.objects().order_by('-timestamp'),
 			'categories' : categories,
-			# 'tagline' : idea.tagline,
+			# 'tagline' : models.Idea.objects(),
 			'rhesusThesis' : rhesusThesis
 		}
 		app.logger.debug(templateData)
@@ -89,11 +96,12 @@ def by_category(cat_name):
 	templateData = {
 		'current_category' : {
 			'slug' : cat_name,
-			'name' : cat_name.replace('_',' ')
+			'name' : cat_name.replace('_',' '),
 		},
 		'ideas' : ideas,
-		'tagline' : tagline,
-		'categories' : categories
+		# 'tagline' : tagline,
+		'categories' : categories,
+		'rhesusThesis': rhesusThesis
 	}
 
 	# render and return template
@@ -112,17 +120,17 @@ def by_rhesus_or_thesis(rhesus_or_thesis):
 
 	# prepare data for template
 	templateData = {
-		'current_category' : {
+		'current_rhesusThesis' : {
 			'slug' : rhesus_or_thesis,
 			'name' : rhesus_or_thesis.replace('_',' ')
 		},
 		'ideas' : ideas,
-		'tagline' : tagline,
+		# 'tagline' : tagline,
 		'rhesus_or_thesis' : rhesusThesis
 	}
 
 	# render and return template
-	return render_template('rhesusThesis_listing.html', **templateData)
+	return render_template('rhesus_or_thesis.html', **templateData)
 
 @app.route("/tagline/<tag_line>")
 def by_tag_line(tag_line):
@@ -195,6 +203,10 @@ def idea_comment(idea_id):
 	idea.comments.append(comment)
 
 	# save it
+	
+# old data was giving problems
+	if idea.tagline == None: 
+		idea.tagline = ' '
 	idea.save()
 
 	return redirect('/ideas/%s' % idea.slug)
