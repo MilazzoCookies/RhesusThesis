@@ -1,5 +1,3 @@
-from app import db
-
 # mongoengine database module
 from mongoengine import *
 from datetime import datetime
@@ -30,17 +28,3 @@ class Idea(Document):
 	# Timestamp will record the date and time idea was created.
 	timestamp = DateTimeField(default=datetime.now())
 
-
-class User(db.Document):
-	email = db.EmailField(unique=True)
-	username = db.StringField(default=True)
-	password = db.StringField(default=True)
-	active = db.BooleanField(default=True)
-	isAdmin = db.BooleanField(default=False)
-	timestamp = db.DateTimeField(default=datetime.now())
-
-class Note(db.Document):
-	title = db.StringField(required=True,max_length=120)
-	content = db.StringField()
-	last_updated = db.DateTimeField(default=datetime.now())
-	user = db.ReferenceField(User)

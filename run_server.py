@@ -4,11 +4,11 @@ import os
 from app import app
 
 # Get Blueprint Apps
-from notes import notes_app
+from thesisIdeas import thesisIdeas_app
 from auth import auth_flask_login
 
 # Register Blueprints
-app.register_blueprint(notes_app)
+app.register_blueprint(thesisIdeas_app)
 app.register_blueprint(auth_flask_login)
 
 # start the server

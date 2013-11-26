@@ -52,8 +52,17 @@
 		
 	</div>
 
+	{% if current_user.is_anonymous() %}
+	<div class = "col-md-6" style = "margin-left: 30px;">
+		<h2>
+			<a href="/login">login</a> or <a href="/register">register</a> to contribute to Rhesus Thesis
+		</h2>
+	</div>
+	{% endif %}
+
 	<!-- right column -->
-	
+	{% if current_user.is_authenticated() %}
+	<h2><a href="/logout">Logout</a> Hello {{current_user.username}}</h2>
 	<div class="col-md-6" style = "margin-left: 30px;">
 	<h3>Add an idea here</h3>
 		<form method="POST" role="form">
@@ -106,7 +115,7 @@
 			<button type="submit" class="btn btn-primary">Submit Idea</button>
 		</form>
 	</div>
-
+	{% endif %}
 	
 
 </div>

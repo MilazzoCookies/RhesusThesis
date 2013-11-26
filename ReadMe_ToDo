@@ -1,0 +1,9 @@
+make thesis.py
+
+copy app.py into thesis.py
+
+top blueprint config 
+
+update models.py > bring your existing models into new models.py
+
+bring in libs/ directory with 2 files __init__ and User

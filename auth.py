@@ -11,20 +11,21 @@ auth_flask_login = Blueprint('auth_flask_login', __name__, template_folder='temp
 
 @auth_flask_login.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST" and "email" in request.form:
-        email = request.form["email"]
-        userObj = User()
-        user = userObj.get_by_email_w_password(email)
-     	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
+	if request.method == "POST" and "email" in request.form:
+		email = request.form["email"]
+		username = request.form['username']
+		userObj = User()
+		user = userObj.get_by_email_w_password(email, username)
+		if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
 			remember = request.form.get("remember", "no") == "yes"
 
 			if login_user(user, remember=remember):
 				flash("Logged in!")
-				return redirect('/notes/create')
+				return redirect('/thesisIdeas/create')
 			else:
 				flash("unable to log you in")
 
-    return render_template("/auth/login.html")
+	return render_template("/auth/login.html")
 
 #
 # Route disabled - enable route to allow user registration.
@@ -41,12 +42,13 @@ def register():
 
 	elif request.method == 'POST' and registerForm.validate():
 		email = request.form['email']
+		username = request.form['username']
 		
 		# generate password hash
 		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
 
 		# prepare User
-		user = User(email,password_hash)
+		user = User(email, username, password_hash)
 		print user
 
 		try:
@@ -70,24 +72,25 @@ def register():
 
 	return render_template("/auth/register.html", **templateData)
 
+
 @auth_flask_login.route("/reauth", methods=["GET", "POST"])
 @login_required
 def reauth():
-    if request.method == "POST":
-        confirm_login()
-        flash(u"Reauthenticated.")
-        return redirect(request.args.get("next") or '/admin')
-    
-    templateData = {}
-    return render_template("/auth/reauth.html", **templateData)
+	if request.method == "POST":
+		confirm_login()
+		flash(u"Reauthenticated.")
+		return redirect(request.args.get("next") or '/admin')
+
+	templateData = {}
+	return render_template("/auth/reauth.html", **templateData)
 
 
 @auth_flask_login.route("/logout")
 @login_required
 def logout():
-    logout_user()
-    flash("Logged out.")
-    return redirect('/login')
+	logout_user()
+	flash("Logged out.")
+	return redirect('/login')
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
