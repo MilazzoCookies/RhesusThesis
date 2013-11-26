@@ -61,6 +61,7 @@ def index():
 		templateData = {
 			'ideas' : models.Idea.objects().order_by('-timestamp'),
 			'categories' : categories,
+			# 'creators' : creator,
 			# 'tagline' : models.Idea.objects(),
 			'rhesusThesis' : rhesusThesis
 		}
@@ -68,6 +69,31 @@ def index():
 
 		return render_template("main.html", **templateData)
 
+
+
+@thesisIdeas_app.route("/byUser/<by_user>")
+def by_user(by_user):
+
+	# try and get ideas where cat_name is inside the categories list
+	try:
+		ideas = models.Idea.objects(byUser=by_user)
+
+	# not found, abort w/ 404 page
+	except:
+		abort(404)
+
+	# prepare data for template
+	templateData = {
+		'current_byUser' : {
+			'slug' : by_user,
+			'name' : by_user.replace('_',' '),
+		},
+		'ideas' : ideas,
+		# 'tagline' : tagline,
+		'creators' : creator,
+		# 'rhesusThesis': rhesusThesis
+	}
+	return render_template('by_user.html', **templateData)
 
 
 @thesisIdeas_app.route("/category/<cat_name>")

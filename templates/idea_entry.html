@@ -30,6 +30,7 @@
 		<p>added: {{ idea.timestamp }} | id: {{ idea.id }}</p>
 		
 	<!-- ADD COMMENT -->
+	{% if current_user.is_authenticated() %}
 			<div class="col-md-5">
 				<hr>
 				<form method="POST" action="/ideas/{{ idea.id }}/comment">
@@ -44,6 +45,8 @@
 					</label>
 				</form>
 			</div>
+
+	{% endif %}
 
 		
 

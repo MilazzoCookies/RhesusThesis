@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+<div class="row">
+
+	<!-- left column -->
+	<div class="span6">
+		<h3>{{ by_user.get('name')|title }}</h3>
+		
+		{% for idea in ideas %}
+			<h4>IDEA: <a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a></h4>
+			<!-- <a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a> -->
+			<p>by {{ idea.creator }}</p>
+			<!-- <a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a> -->
+			<p>
+			{% for usr in idea.creators %}
+				<span class="label label-inverse"><a href="/byUser/{{ usr}}">{{ usr|replace("_"," ")}}</a></span>
+			{% endfor %}
+			<hr/>
+		{% endfor %}
+		
+	</div>
+
+	<div class="span6">
+		<h3>Suggestions for {{idea.creator}}</h3>
+		<ul>
+		{% for usr in categories %}
+		<li><a href="/byUser/{{ usr|replace(" ","_") }}">{{ usr|title }}</a></li>
+		{% endfor %}
+		</ul>
+
+		<br><br>
+
+		<a href="/" class="btn btn-large btn-info">Add Your Idea</a>
+	</div>
+
+	
+
+	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}
