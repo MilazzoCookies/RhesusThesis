@@ -13,7 +13,7 @@ auth_flask_login = Blueprint('auth_flask_login', __name__, template_folder='temp
 def login():
 	if request.method == "POST" and "email" in request.form:
 		email = request.form["email"]
-		username = request.form['username']
+		# username = request.form['username']
 		userObj = User()
 		user = userObj.get_by_email_w_password(email)
 		if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
@@ -21,7 +21,7 @@ def login():
 
 			if login_user(user, remember=remember):
 				flash("Logged in!")
-				return redirect('/thesisIdeas/create')
+				return redirect('/')
 			else:
 				flash("unable to log you in")
 
@@ -43,13 +43,13 @@ def register():
 	elif request.method == 'POST' and registerForm.validate():
 		email = request.form['email']
 
-		username = request.form['username']
+		# username = request.form['username']
 		
 		# generate password hash
 		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
 
 		# prepare User
-		user = User(email, username, password_hash)
+		user = User(email, password_hash)
 		print user
 
 		try:

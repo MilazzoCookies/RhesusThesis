@@ -18,7 +18,7 @@
 			<h4>
 				<a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a>
 			</h4>
-			<p>by <a href="/byUser/{{usr}}"> {{ idea.creator }}</a></p>
+			<p>by {{ idea.creator }}</a></p>
 			<!-- <p>IDEA: {{ idea.tagline }}</p> -->
 			<p>
 			
@@ -62,7 +62,7 @@
 
 	<!-- right column -->
 	{% if current_user.is_authenticated() %}
-	<h2><a href="/logout">Logout</a> Hello {{current_user.username}}</h2>
+	<!-- <h2><a href="/logout">Logout</a> Hello {{current_user.email}}</h2> -->
 	<div class="col-md-6" style = "margin-left: 30px;">
 	<h3>Add an idea here</h3>
 		<form method="POST" role="form">

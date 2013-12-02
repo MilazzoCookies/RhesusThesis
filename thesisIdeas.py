@@ -71,6 +71,7 @@ def index():
 
 
 
+
 @thesisIdeas_app.route("/byUser/<by_user>")
 def by_user(by_user):
 

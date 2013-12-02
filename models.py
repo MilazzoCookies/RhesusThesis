@@ -10,8 +10,17 @@ class Comment(EmbeddedDocument):
 	comment = StringField()
 	timestamp = DateTimeField(default=datetime.now())
 	
-class Idea(Document):
+class User(db.Document):
+	# fake it on the front end and just lable the email as username
+	email = db.EmailField(unique=True)
+	# username = db.StringField(default=True)
+	password = db.StringField(default=True)
+	active = db.BooleanField(default=True)
+	isAdmin = db.BooleanField(default=False)
+	timestamp = db.DateTimeField(default=datetime.now())
 
+class Idea(Document):
+	# creator = db.ReferenceField(User)
 	creator = StringField(max_length=120, required=True, verbose_name="First name")
 	idea = StringField(max_length=120, required=True)
 	tagline = StringField(max_length=120, required=True)
@@ -31,13 +40,7 @@ class Idea(Document):
 	timestamp = DateTimeField(default=datetime.now())
 
 
-class User(db.Document):
-	email = db.EmailField(unique=True)
-	username = db.StringField(default=True)
-	password = db.StringField(default=True)
-	active = db.BooleanField(default=True)
-	isAdmin = db.BooleanField(default=False)
-	timestamp = db.DateTimeField(default=datetime.now())
+
 
 class Note(db.Document):
 	title = db.StringField(required=True,max_length=120)
