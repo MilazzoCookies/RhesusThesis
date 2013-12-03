@@ -21,7 +21,7 @@ import models
 # hardcoded categories for the checkboxes on the form
 categories = ['web', 'software', 'physical computing','video','audio','installation',]
 rhesusThesis = ['RHESUS','THESIS'] #for a dropdown
-
+allUsers = ['Tony Baloney']
 
 @thesisIdeas_app.route("/", methods=['GET','POST'])
 def index():
@@ -37,6 +37,7 @@ def index():
 		idea.idea = request.form.get('idea','')
 		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
 		idea.rhesusThesis = request.form.getlist('rhesusThesis')
+		idea.allUsers = request.form.getlist('rhesusThesis')
 
 
 		idea.save() # save it

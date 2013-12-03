@@ -12,7 +12,7 @@ class Comment(EmbeddedDocument):
 	
 class User(db.Document):
 	# fake it on the front end and just lable the email as username
-	email = db.EmailField(unique=True)
+	email = db.StringField(unique=True)
 	# username = db.StringField(default=True)
 	password = db.StringField(default=True)
 	active = db.BooleanField(default=True)
@@ -32,6 +32,9 @@ class Idea(Document):
 
 	# rhesusThesis is a list of strings
 	rhesusThesis = ListField(StringField(max_length=30))
+
+	#expanding list of users
+	allUsers = ListField(StringField(max_length=30))
 
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )

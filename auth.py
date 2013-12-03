@@ -5,9 +5,13 @@ from app import login_manager, flask_bcrypt
 from flask.ext.login import (current_user, login_required, login_user, logout_user, confirm_login, fresh_login_required)
 
 import forms
+import models
 from libs.User import User
+# from collections import deque
 
 auth_flask_login = Blueprint('auth_flask_login', __name__, template_folder='templates')
+
+# allUsers = ['Tony Baloney']
 
 @auth_flask_login.route("/login", methods=["GET", "POST"])
 def login():
@@ -20,6 +24,8 @@ def login():
 			remember = request.form.get("remember", "no") == "yes"
 
 			if login_user(user, remember=remember):
+				
+
 				flash("Logged in!")
 				return redirect('/')
 			else:
@@ -50,7 +56,13 @@ def register():
 
 		# prepare User
 		user = User(email, password_hash)
+		idea = models.Idea()
+		idea.allUsers = request.form.getlist('rhesusThesis')
+		idea.allUsers.append(email)
+		print idea.allUsers
+
 		print user
+		# print allUsers
 
 		try:
 			user.save()
