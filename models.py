@@ -5,6 +5,9 @@ from mongoengine import *
 from datetime import datetime
 import logging
 
+allUsers = ['Toney Baloney']
+# slug = StringField()
+
 class Comment(EmbeddedDocument):
 	name = StringField()
 	comment = StringField()
@@ -34,7 +37,7 @@ class Idea(Document):
 	rhesusThesis = ListField(StringField(max_length=30))
 
 	#expanding list of users
-	allUsers = ListField(StringField(max_length=30))
+	# allUsers = ListField(StringField(max_length=30))
 
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )

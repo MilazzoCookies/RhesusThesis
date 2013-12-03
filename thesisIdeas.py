@@ -21,7 +21,7 @@ import models
 # hardcoded categories for the checkboxes on the form
 categories = ['web', 'software', 'physical computing','video','audio','installation',]
 rhesusThesis = ['RHESUS','THESIS'] #for a dropdown
-allUsers = ['Tony Baloney']
+# allUsers = ['Tony Baloney']
 
 @thesisIdeas_app.route("/", methods=['GET','POST'])
 def index():
@@ -37,7 +37,7 @@ def index():
 		idea.idea = request.form.get('idea','')
 		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
 		idea.rhesusThesis = request.form.getlist('rhesusThesis')
-		idea.allUsers = request.form.getlist('rhesusThesis')
+		models.allUsers = request.form.getlist('allUsers')
 
 
 		idea.save() # save it
@@ -64,6 +64,7 @@ def index():
 			'categories' : categories,
 			# 'creators' : creator,
 			# 'tagline' : models.Idea.objects(),
+			'allUsers' : models.allUsers,
 			'rhesusThesis' : rhesusThesis
 		}
 		# app.logger.debug(templateData)
@@ -72,13 +73,14 @@ def index():
 
 
 
+##### trying to get all_users from models and match it 
+##### up with the ideas that have the same creator
+@thesisIdeas_app.route("/allUsers/<all_users>")
+def by_users(all_users):
 
-@thesisIdeas_app.route("/byUser/<by_user>")
-def by_user(by_user):
-
-	# try and get ideas where cat_name is inside the categories list
+	# try and get ideas where all_users is inside the creator list
 	try:
-		ideas = models.Idea.objects(byUser=by_user)
+		ideas = models.Idea.objects(creator=all_users)
 
 	# not found, abort w/ 404 page
 	except:
@@ -86,16 +88,16 @@ def by_user(by_user):
 
 	# prepare data for template
 	templateData = {
-		'current_byUser' : {
-			'slug' : by_user,
-			'name' : by_user.replace('_',' '),
+		'current_allUsers' : {
+			'slug' : all_users,
+			'name' : all_users.replace('_',' '),
 		},
 		'ideas' : ideas,
 		# 'tagline' : tagline,
-		'creators' : creator,
+		# 'creators' : creator,
 		# 'rhesusThesis': rhesusThesis
 	}
-	return render_template('by_user.html', **templateData)
+	return render_template('all_users.html', **templateData)
 
 
 @thesisIdeas_app.route("/category/<cat_name>")
@@ -143,6 +145,7 @@ def by_rhesus_or_thesis(rhesus_or_thesis):
 		},
 		'ideas' : ideas,
 		# 'tagline' : tagline,
+		'creators' : creator,
 		'rhesus_or_thesis' : rhesusThesis
 	}
 

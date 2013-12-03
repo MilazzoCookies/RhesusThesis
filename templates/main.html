@@ -18,8 +18,8 @@
 			<h4>
 				<a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a>
 			</h4>
-			<p>by {{ idea.creator }}</a></p>
-			<!-- <p>IDEA: {{ idea.tagline }}</p> -->
+			<p>by <a href="/allUsers/{{ idea.creator }}">{{ idea.creator }}</a></p>
+			<!-- NEED TO GET CREATOR TO LINK TO ALLUSERS PAGE -->
 			<p>
 			
 			<ul>
@@ -76,7 +76,7 @@
 
 			<label>Rhesus or Thesis?</label>
 			<p class="help-block"></p>
-			{# comment - loop through rhesusThesis and create checkboxes #}
+			<!-- {# comment - loop through rhesusThesis and create checkboxes #} -->
 			{% for r in rhesusThesis|sort %}
 
 			<div class="checkbox">
@@ -101,11 +101,22 @@
 
 			<label>Category</label>
 			<p class="help-block">Select as many as you need.</p>
-			{# comment - loop through categories and create checkboxes #}
+			<!-- {# comment - loop through categories and create checkboxes #} -->
 			{% for c in categories|sort %}
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" name="categories" value="{{c}}"> {{ c|title }}
+				</label>
+			</div>
+			{% endfor %}
+
+			<label>ALL USERS</label>
+			<p class="help-block">Select as many as you need.</p>
+			<!-- {# comment - loop through categories and create checkboxes #} -->
+			{% for a in allUsers|sort %}
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="categories" value="{{a}}"> {{ a|title }}
 				</label>
 			</div>
 			{% endfor %}
