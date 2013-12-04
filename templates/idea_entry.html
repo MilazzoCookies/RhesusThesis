@@ -8,24 +8,43 @@
 	<!-- left column -->
 	<div class="col-md-6">
 		<h2>IDEA: {{ idea.tagline }}</h2>
-		<p>By {{ idea.creator }}</p>
+		<p>By <a href="/allUsers/{{ idea.creator }}">{{ idea.creator }}</a></p>
+		{% for fUse in idea.forUser %}
+				<p>For
+					<a href="/forUser/{{ fUse}}">
+						{{ fUse|replace("_"," ")}}
+					</a>
+				</p>
+					
+				{% endfor %}
+		
+		<!-- <ul> -->
+				{% for r in idea.rhesusThesis %}
+					<p>This is a <a href="/rhesusThesis/{{ r}}">
+						{{ r|replace("_"," ")}}
+					</a></p>		
+				{% endfor %}
+
+			</ul>
 		<hr>
 		<p>Description: {{ idea.idea }}</p>
 		<p>
+			
 			<ul>
-			{% for c in idea.categories %}
-			<li>{{ c|replace("_"," ") }}</li>
-			{% endfor %}
-			</ul>
-		</p>
+				{% for cat in idea.categories %}
+				<li>
+					<a href="/category/{{ cat}}">
+						{{ cat|replace("_"," ")}}
+					</a>
+				</li>
+					{% endfor %}
 
-		<p>
-			<ul>
-			{% for r in idea.rhesusThesis %}
-			<li>{{ r|replace("_"," ") }}</li>
-			{% endfor %}
 			</ul>
-		</p>
+
+			
+
+			<!-- <a class="label" href="/ideas/{{ idea.slug }}/edit">edit</a> -->
+			</p>
 
 		<p>added: {{ idea.timestamp }} | id: {{ idea.id }}</p>
 		

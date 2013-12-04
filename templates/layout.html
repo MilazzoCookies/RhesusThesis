@@ -35,12 +35,17 @@
        <!--  <li>
             <a href="/">Home</a>
         </li> -->
+        <li><a href="/about">About</a></li>
+        <li>
+            <a href="/rhesusThesis/RHESUS">Rhesus</a>
+        </li>
+
+        <li>
+            <a href="/rhesusThesis/THESIS">Thesis</a>
+        </li>
 
         {% if current_user.is_authenticated() %}
 <!--       add links to ideas for this user etc -->
-        <li>
-            <a href="#">Hello {{current_user.email}}</a>
-        </li>
         
         <li>
             <a href="/allUsers/{{current_user.email}}">Submitted Ideas</a>
@@ -54,6 +59,9 @@
             <a href="/logout">Logout</a>
         </li>
 
+        <li>
+            <a href="#">Hello {{current_user.email}}</a>
+        </li>
         
         {% else %}
 

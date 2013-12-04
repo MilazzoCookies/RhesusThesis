@@ -29,32 +29,6 @@
 				</p>
 					
 				{% endfor %}
-			<p>
-			
-			<ul>
-				{% for cat in idea.categories %}
-				<li>
-					<a href="/category/{{ cat}}">
-						{{ cat|replace("_"," ")}}
-					</a>
-				</li>
-					
-				{% endfor %}
-			</ul>
-
-			<ul>
-				{% for rhes in idea.rhesusThesis %}
-				<li>
-					<a href="/rhesusThesis/{{ rhes}}">
-						{{ rhes|replace("_"," ")}}
-					</a>
-				</li>
-					
-				{% endfor %}
-			</ul>
-
-			<!-- <a class="label" href="/ideas/{{ idea.slug }}/edit">edit</a> -->
-			</p>
 			
 			<hr/>
 		{% endfor %}
@@ -96,7 +70,7 @@
 			{% endfor %}
 			</select>
 			<p class="help-block">Select a user to send this idea to</p>
-			<Br>
+			<!-- <Br> -->
 
 			<label>Rhesus or Thesis?</label>
 			<p class="help-block"></p>
@@ -121,8 +95,8 @@
 				<textarea name="idea" id="idea" class="form-control"></textarea>
 			</div>
 
-			<label>Category</label>
-			<p class="help-block">Select as many as you need.</p>
+			<label>Category</label><br>
+			
 		<!-- 	
 			{% for c in categories|sort %}
 			<div class="checkbox">
@@ -142,6 +116,7 @@
 				</div>
 			{% endfor %}
 			</select>
+			<p class="help-block">Select as many as you need.</p>
 			<br>
 
 

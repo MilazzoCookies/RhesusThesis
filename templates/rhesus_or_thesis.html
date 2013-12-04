@@ -13,8 +13,8 @@
 			<h4><a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a></h4>
 			<p>by {{ idea.creator }}</p>
 			<p>
-			{% for rhes in idea.rhesusThesus %}
-				<span class="label label-inverse"><a href="/rhesusThesis/{{ rhes}}">{{ rhes|replace("_"," ")}}</a></span>
+			{% for r in idea.rhesusThesus %}
+				<span class="label label-inverse"><a href="/rhesusThesis/{{ r}}">{{ rhes|replace("_"," ")}}</a></span>
 			{% endfor %}
 			<hr/>
 		{% endfor %}
@@ -24,8 +24,8 @@
 	<div class="span6">
 		<h3>Rhesus or Thesis</h3>
 		<ul>
-		{% for rhes in rhesusThesis %}
-		<li><a href="/rhesusThesis/{{ rhes|replace(" ","_") }}">{{ rhes|title }}</a></li>
+		{% for r in rhesusThesis %}
+		<li><a href="/rhesusThesis/{{ r|replace(" ","_") }}">{{ r|title }}</a></li>
 		{% endfor %}
 		</ul>
 

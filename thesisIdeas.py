@@ -176,7 +176,7 @@ def by_rhesus_or_thesis(rhesus_or_thesis):
 		},
 		'ideas' : ideas,
 		# 'tagline' : tagline,
-		'creators' : creator,
+		# 'creators' : creator,
 		'rhesus_or_thesis' : rhesusThesis
 	}
 
@@ -261,6 +261,11 @@ def idea_comment(idea_id):
 	idea.save()
 
 	return redirect('/ideas/%s' % idea.slug)
+
+@thesisIdeas_app.route("/about")
+def about_rhesusthesis():
+	
+	return render_template('about.html')
 
 
 @thesisIdeas_app.errorhandler(404)
