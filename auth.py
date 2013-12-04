@@ -58,8 +58,8 @@ def register():
 		user = User(email, password_hash)
 		idea = models.Idea()
 		# idea.allUsers = request.form.getlist('rhesusThesis')
-		models.allUsers.append(email)
-		print models.allUsers
+		# models.allUsers.append(email)
+		# print models.allUsers
 
 		#print user
 		# print allUsers

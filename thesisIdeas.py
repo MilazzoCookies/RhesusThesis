@@ -21,6 +21,7 @@ import models
 # hardcoded categories for the checkboxes on the form
 categories = ['web', 'software', 'physical computing','video','audio','installation',]
 rhesusThesis = ['RHESUS','THESIS'] #for a dropdown
+# forUser = models.allUsers
 # allUsers = ['Tony Baloney']
 
 @thesisIdeas_app.route("/", methods=['GET','POST'])
@@ -37,7 +38,8 @@ def index():
 		idea.idea = request.form.get('idea','')
 		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
 		idea.rhesusThesis = request.form.getlist('rhesusThesis')
-		models.allUsers = request.form.getlist('allUsers')
+		idea.forUser = request.form.getlist('forUser')
+		# models.allUsers = request.form.getlist('allUsers')
 
 
 		idea.save() # save it
@@ -64,7 +66,7 @@ def index():
 			'categories' : categories,
 			# 'creators' : creator,
 			# 'tagline' : models.Idea.objects(),
-			'allUsers' : models.allUsers,
+			'allUsers' : models.User.objects(),
 			'rhesusThesis' : rhesusThesis
 		}
 		# app.logger.debug(templateData)
@@ -73,8 +75,37 @@ def index():
 
 
 
+
+@thesisIdeas_app.route("/forUser/<for_user>")
+def by_userFor(for_user):
+
+	# try and get ideas where cat_name is inside the categories list
+	try:
+		ideas = models.Idea.objects(forUser= for_user)
+
+	# not found, abort w/ 404 page
+	except:
+		abort(404)
+
+	# prepare data for template
+	templateData = {
+		'current_forUser' : {
+			'slug' : for_user,
+			'name' : for_user.replace('_',' '),
+		},
+		'ideas' : ideas,
+		# 'tagline' : tagline,
+		'categories' : categories,
+		'rhesusThesis': rhesusThesis
+	}
+
+	# render and return template
+	return render_template('for_user.html', **templateData)
+
+
 ##### trying to get all_users from models and match it 
 ##### up with the ideas that have the same creator
+
 @thesisIdeas_app.route("/allUsers/<all_users>")
 def by_users(all_users):
 

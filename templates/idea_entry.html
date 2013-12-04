@@ -34,8 +34,9 @@
 			<div class="col-md-5">
 				<hr>
 				<form method="POST" action="/ideas/{{ idea.id }}/comment">
-					<label for="name">First Name</label>
-					<input type="text" id="name" name="name">
+					<!-- <label for="name">First Name</label> -->
+					<input type="text" id="name" name="name"  value="{{current_user.email}}" style="display: none;">
+
 					<br>
 					<label for="comment">Comment</label>
 					<textarea cols="50" rows="6" id="comment" name="comment"></textarea>

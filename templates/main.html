@@ -19,7 +19,16 @@
 				<a href="/ideas/{{ idea.slug }}">{{ idea.tagline }}</a>
 			</h4>
 			<p>by <a href="/allUsers/{{ idea.creator }}">{{ idea.creator }}</a></p>
-			<!-- NEED TO GET CREATOR TO LINK TO ALLUSERS PAGE -->
+			<!-- <p>For <a href="/forUser/{{ idea.forUser }}">{{ idea.forUser }}</a></p> -->
+
+			{% for fUse in idea.forUser %}
+				<p>for
+					<a href="/forUser/{{ fUse}}">
+						{{ fUse|replace("_"," ")}}
+					</a>
+				</p>
+					
+				{% endfor %}
 			<p>
 			
 			<ul>
@@ -73,6 +82,21 @@
 			</div>
 
 			<!-- <div class="form-group"> -->
+			
+			<label>Who is this idea for?</label><br>
+			
+			<!-- {# comment - loop through categories and create checkboxes #} -->
+			<select name="forUser" >
+			{% for a in allUsers|sort %}
+				<div>
+					<label>
+				<option value="{{a.email}}">{{ a.email|title }}</option>
+					</label>
+				</div>
+			{% endfor %}
+			</select>
+			<p class="help-block">Select a user to send this idea to</p>
+			<Br>
 
 			<label>Rhesus or Thesis?</label>
 			<p class="help-block"></p>
@@ -85,8 +109,6 @@
 				</label>
 
 			</div>
-
-
 			{% endfor %}
 
 			<div class="form-group" style = "width = 65%;">
@@ -101,26 +123,26 @@
 
 			<label>Category</label>
 			<p class="help-block">Select as many as you need.</p>
-			<!-- {# comment - loop through categories and create checkboxes #} -->
+		<!-- 	
 			{% for c in categories|sort %}
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" name="categories" value="{{c}}"> {{ c|title }}
+					
 				</label>
 			</div>
-			{% endfor %}
+			{% endfor %} -->
 
-			<label>ALL USERS</label>
-			<p class="help-block">Select as many as you need.</p>
-			<!-- {# comment - loop through categories and create checkboxes #} -->
-			{% for a in allUsers|sort %}
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" name="categories" value="{{a}}"> {{ a|title }}
-				</label>
-			</div>
+			<select multiple name="categories" >
+			{% for c in categories|sort %}
+				<div>
+					<label>
+				<option  value="{{c}}" >{{ c|title }} </option >
+					</label>
+				</div>
 			{% endfor %}
-
+			</select>
+			<br>
 
 
 			<button type="submit" class="btn btn-primary">Submit Idea</button>

@@ -5,8 +5,10 @@ from mongoengine import *
 from datetime import datetime
 import logging
 
-allUsers = ['Toney Baloney']
+# class userDB		
+# allUsers = ['Anyone']
 # slug = StringField()
+
 
 class Comment(EmbeddedDocument):
 	name = StringField()
@@ -29,15 +31,15 @@ class Idea(Document):
 	tagline = StringField(max_length=120, required=True)
 	slug = StringField()
 	idea = StringField(required=True, verbose_name="What is your idea?")
+	
+	#let users tag another user for an idea
+	forUser = ListField(StringField(max_length=30))
 
 	# Category is a list of Strings
 	categories = ListField(StringField(max_length=30))
 
 	# rhesusThesis is a list of strings
 	rhesusThesis = ListField(StringField(max_length=30))
-
-	#expanding list of users
-	# allUsers = ListField(StringField(max_length=30))
 
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )

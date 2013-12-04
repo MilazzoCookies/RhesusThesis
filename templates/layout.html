@@ -27,24 +27,34 @@
   
         <div class="container">
 
-            <h1><a href="/">WELCOME TO RHESUS THESIS</a> </h1>
-            <hr>
+          <!--   <h1><a href="/">WELCOME TO RHESUS THESIS</a> </h1>
+            <hr> -->
     <nav class="navbar navbar-default navbar-top" role="navigation">
-        <a class="navbar-brand" href="#">RhesusThesis</a>
+        <a class="navbar-brand" href="/">RhesusThesis</a>
         <ul class="nav navbar-nav">
-        <li>
+       <!--  <li>
             <a href="/">Home</a>
-        </li>
+        </li> -->
+
         {% if current_user.is_authenticated() %}
 <!--       add links to ideas for this user etc -->
+        <li>
+            <a href="#">Hello {{current_user.email}}</a>
+        </li>
+        
+        <li>
+            <a href="/allUsers/{{current_user.email}}">Submitted Ideas</a>
+        </li>
+
+        <li>
+            <a href="/forUser/{{current_user.email}}">My Ideas</a>
+        </li>
         
         <li>
             <a href="/logout">Logout</a>
         </li>
 
-        <li>
-            <a href="#">Hello {{current_user.email}}</a>
-        </li>
+        
         {% else %}
 
         <li><a href="/login">Login</a></li>
