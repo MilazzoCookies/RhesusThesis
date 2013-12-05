@@ -73,10 +73,9 @@
 			<!-- <Br> -->
 
 			<label>Rhesus or Thesis?</label>
-			<p class="help-block"></p>
+			
 			<!-- {# comment - loop through rhesusThesis and create checkboxes #} -->
 			{% for r in rhesusThesis|sort %}
-
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" name="rhesusThesis" value="{{r}}"> {{ r|title }}
@@ -84,6 +83,7 @@
 
 			</div>
 			{% endfor %}
+			<p class="help-block">Is this a Thesis idea? Or a Rhesus?</p>
 
 			<div class="form-group" style = "width = 65%;">
 				<label for="tagline">Idea Tagline</label>
