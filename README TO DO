@@ -1,9 +1,0 @@
-README TO DO:
-
-X	get register and login to work with username
-
-get current user and pull that out into one line
-
-update models to use db reference field(currenly commented out)
-
-look at notes.creation in demo
